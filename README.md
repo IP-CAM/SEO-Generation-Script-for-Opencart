@@ -19,7 +19,7 @@ define('LANGUAGE_ID', 1);
 define('STORE_ID', 0);
 ```
 
-.   or require config.php
+   or require config.php
  
  ```
  require_once 'config.php'
