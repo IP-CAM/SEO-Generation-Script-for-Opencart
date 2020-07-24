@@ -22,9 +22,10 @@ define('STORE_ID', 0);
 
 $seo = new SeoGeneration();
 $seo->debug = true;
-$seo->start(['manufacturer','categories','products']); // all
+$seo->start(['manufacturer','categories','products','article']); // all
 //$seo->start(['products']); // only products
 //$seo->start(['categories','products']); // only categories and products
+//$seo->start(['categories','products','article']); // only categories, products and article
 
 
 class SeoGeneration
@@ -91,7 +92,12 @@ class SeoGeneration
 
         return $this->connection->query($sql);
     }
+    private function getArticle()
+    {
+        $sql = "SELECT ad.article_id, ad.name FROM " . DB_PREFIX . "article_description  as ad  WHERE ad.name IS NOT NULL AND ad.name !='' ";
 
+        return $this->connection->query($sql);
+    }
     private function addSeo($query, $keyword)
     {
         $sql = "SELECT * FROM " . DB_PREFIX . "seo_url WHERE keyword = '" . $keyword . "' OR query = '" . $query . "'";
@@ -135,7 +141,17 @@ class SeoGeneration
                 }
             }
         }
+        if(in_array('article',$types)){
+            $articles = $this->getArticle();
 
+            while ($item = $articles->fetch_assoc()) {
+
+                $qwer = $this->str2url($item['name']);
+                if ($qwer) {
+                    $this->addSeo( 'article_id=' . $item['article_id'],$this->str2url($item['name']));
+                }
+            }
+        }
         if($this->debug){
            $this->debug();
         }
