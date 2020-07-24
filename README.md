@@ -1,5 +1,5 @@
 # SEO Generation
-Script for mass generating SEO links for products, categories and brands in stores based on the Opencart engine
+Script for mass generating SEO links for products, categories, article and brands in stores based on the Opencart engine
 
 ## Using 
 1. Upload the **engine.php** file to the root of the project directory
@@ -30,3 +30,4 @@ define('STORE_ID', 0);
   ```
   <host>/engine.php
   ```
+ 4. Don't forget to clear your cache
